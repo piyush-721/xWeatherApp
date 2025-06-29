@@ -49,15 +49,15 @@ function App() {
               <h4>Temperature</h4>
               <p>{city.current.temp_c}⁰C</p>
             </div>
-            <div className='card'>
+            <div className='weather-card'>
               <h4>Humidity</h4>
               <p>{city.current.humidity}%</p>
             </div>
-            <div className='card'>
+            <div className='weather-card'>
               <h4>Condition</h4>
               <p>{city.current.condition.text}</p>
             </div>
-            <div className='card'>
+            <div className='weather-card'>
               <h4>Wind Speed</h4>
               <p>{city.current.wind_kph}kph</p>
             </div>
