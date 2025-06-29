@@ -1,25 +1,68 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState, useEffect} from 'react';
 
 function App() {
+
+  const [value, setValue] = useState("");
+  const [city, setCity] = useState([]);
+  const [showData, setShowData] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
+  const handleSearch = () => {
+    if(!value.trim()) return;
+    fetch(`https://api.weatherapi.com/v1/current.json?key=4cb09fbd67894756985155321252806&q=${value}`)
+    .then((response) => response.json())
+    .then((data) => {
+        if(data.error){
+          throw new Error("error");
+        }
+        setShowData(true);
+        setCity(data);
+
+    })
+    .catch((error) => {
+      setShowData(false);
+      console.log(error);
+      alert("Failed to fetch weather data");
+    })
+  }
+  console.log(city);
+  // console.log(city);
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input type='text' onChange={(e) => setValue(e.target.value)}></input>
+      <button onClick={handleSearch}>Search</button>
+
+      {showData && (
+        
+        <div className='cards'>
+          <div className='card'>
+            <h4>Temperature</h4>
+            <p>{city.current.temp_c}⁰C</p>
+          </div>
+          <div className='card'>
+            <h4>Humidity</h4>
+            <p>{city.current.humidity}%</p>
+          </div>
+          <div className='card'>
+            <h4>Condition</h4>
+            <p>{city.current.condition.text}</p>
+          </div>
+          <div className='card'>
+            <h4>Wind Speed</h4>
+            <p>{city.current.wind_kph}kph</p>
+          </div>
+        </div>
+
+      )}
+
     </div>
   );
 }
 
 export default App;
+
+
+// temperature humidity condition wind speed
