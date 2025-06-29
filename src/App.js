@@ -40,12 +40,12 @@ function App() {
       <button onClick={handleSearch}>Search</button>
 
       {loading? (
-        <p>Loading. . .</p>
+        <p>Loading data...</p>
       ) : (
         showData && (
           
-          <div className='cards'>
-            <div className='card'>
+          <div className='weather-cards'>
+            <div className='weather-card'>
               <h4>Temperature</h4>
               <p>{city.current.temp_c}⁰C</p>
             </div>
